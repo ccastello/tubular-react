@@ -24,7 +24,7 @@ const getFilterText = (column: ColumnModel) => {
     const filterText = isDate ? convertToFriendlyDateString(column.filterText) : column.filterText;
 
     if (column.filterOperator === CompareOperators.Between) {
-        let argument = column.filterArgument[0];
+        let argument = String(column.filterArgument[0]);
         if (isDate) {
             argument = convertToFriendlyDateString(argument);
         }
