@@ -10,6 +10,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import TuneIcon from '@material-ui/icons/Tune';
 import { FeaturesDrawer } from '../DataGrid/FeaturesDrawer';
 import { ColumnModel, CompareOperators, columnHasFilter } from 'tubular-common';
+import Lang from '../utils/Lang'
 
 const mobileSpacer: React.CSSProperties = { flexShrink: 1 };
 const spacer: React.CSSProperties = { flex: '1 0' };
@@ -21,15 +22,21 @@ export interface GridToolbarProps {
     toolbarOptions: ToolbarOptions;
     gridName: string;
     tbTableInstance: ITbTableInstance;
+    langKey?: string;
 }
 
 export const GridToolbar: React.FunctionComponent<GridToolbarProps> = ({
     toolbarOptions,
     gridName,
     tbTableInstance,
+    langKey,
 }: GridToolbarProps) => {
     const [isMobileResolution] = useResolutionSwitch(outerWidth, timeout);
 
+    if (langKey) {
+        Lang.changeLanguage(langKey)
+    }
+    
     const applyFilters = (columns: ColumnModel[]): ColumnModel[] => {
         columns.forEach((fColumn) => {
             const column = columns.find((c: ColumnModel) => c.name === fColumn.name);
@@ -64,6 +71,8 @@ export const GridToolbar: React.FunctionComponent<GridToolbarProps> = ({
     const [isPanelOpen, togglePanel] = useToggle(false);
     const enableFeaturesDrawer = tbTableInstance.state.columns.find((c) => c.filterable);
 
+    const labelGridFeatures = Lang.translate('GridFeatures')
+
     return (
         <>
             <Toolbar data-testid="grid-toolbar">
@@ -77,6 +86,7 @@ export const GridToolbar: React.FunctionComponent<GridToolbarProps> = ({
                         exportTo={tbTableInstance.api.exportTo}
                         filteredRecordCount={tbTableInstance.state.filteredRecordCount}
                         data-testid="export-button-csv"
+                        langKey={langKey}
                     />
                 )}
                 {toolbarOptions.printButton && (
@@ -86,6 +96,7 @@ export const GridToolbar: React.FunctionComponent<GridToolbarProps> = ({
                         exportTo={tbTableInstance.api.exportTo}
                         filteredRecordCount={tbTableInstance.state.filteredRecordCount}
                         data-testid="export-button-print"
+                        langKey={langKey}
                     />
                 )}
                 {toolbarOptions.searchText && (
@@ -96,7 +107,7 @@ export const GridToolbar: React.FunctionComponent<GridToolbarProps> = ({
                     />
                 )}
 
-                <Tooltip title="Grid features">
+                <Tooltip title={labelGridFeatures}>
                     <IconButton aria-label="Grid features" onClick={togglePanel}>
                         <TuneIcon />
                     </IconButton>

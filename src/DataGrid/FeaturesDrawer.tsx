@@ -10,6 +10,8 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import { ColumnModel, CompareOperators, ColumnDataType } from 'tubular-common';
 import { Button, Grid, AppBar, makeStyles } from '@material-ui/core';
 
+import Lang from '../utils/Lang'
+
 interface TabPanelProps {
     children?: React.ReactNode;
     index: string;
@@ -34,6 +36,8 @@ const useStyles = makeStyles({
     },
     actionsArea: {
         paddingTop: 20,
+        justifyContent: 'space-between',
+
     },
 });
 
@@ -60,6 +64,7 @@ export interface FeaturesDrawerProps {
     columns: ColumnModel[];
     onApplyFeatures: (columns: ColumnModel[]) => void;
     togglePanel: () => void;
+    langKey?: string;
 }
 
 const resolveFilterOperator = (column: ColumnModel): CompareOperators =>
@@ -80,6 +85,7 @@ export const FeaturesDrawer: React.FunctionComponent<FeaturesDrawerProps> = ({
     columns,
     onApplyFeatures,
     togglePanel,
+    langKey,
 }: FeaturesDrawerProps) => {
     const tempColumns = copyColumns(columns);
     const classes = useStyles();
@@ -95,6 +101,11 @@ export const FeaturesDrawer: React.FunctionComponent<FeaturesDrawerProps> = ({
         togglePanel();
     };
 
+    if (langKey) {
+        Lang.changeLanguage(langKey)
+    }
+    const labelFilters = Lang.translate('Filters');
+
     return (
         <Drawer anchor="right" open={true}>
             <Grid
@@ -109,7 +120,7 @@ export const FeaturesDrawer: React.FunctionComponent<FeaturesDrawerProps> = ({
                 <Grid item={true} className={classes.featureContainer}>
                     <AppBar position="static">
                         <Tabs value={value} onChange={handleChange} aria-label="wrapped label tabs example">
-                            <Tab value="filters" icon={<FilterListIcon />} label="Filters" />
+                            <Tab value="filters" icon={<FilterListIcon />} label={labelFilters} />
                             {/* <Tab value="toggleColumns" icon={<ToggleColumnsIcon />} label="Columns" /> */}
                         </Tabs>
                     </AppBar>
@@ -121,12 +132,12 @@ export const FeaturesDrawer: React.FunctionComponent<FeaturesDrawerProps> = ({
                         </TabPanel> */}
                 </Grid>
                 <Grid container={true} className={classes.actionsArea} item={true} direction="row">
+                    <Button variant="outlined" color="secondary" onClick={togglePanel}>
+                        {Lang.translate('Cancel')}
+                    </Button>
                     <Button variant="contained" color="primary" onClick={onApplyClick}>
-                        Apply
-                    </Button>
-                    <Button variant="outlined" color="secondary" onClick={togglePanel} style={{ marginLeft: 10 }}>
-                        Cancel
-                    </Button>
+                        {Lang.translate('Apply')}
+                    </Button>                    
                 </Grid>
             </Grid>
         </Drawer>

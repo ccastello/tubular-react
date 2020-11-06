@@ -4,6 +4,7 @@ import { CompareOperators } from 'tubular-common';
 // import { ITextStyles } from 'office-ui-fabric-react';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
+import Lang from '../utils/Lang'
 
 // const secondInputStyle: ITextStyles = {
 //     root: {
@@ -11,7 +12,12 @@ import Grid from '@material-ui/core/Grid';
 //     },
 // };
 
-export const NumericFilter = ({ column, onApply }: FilterEditorProps) => {
+export const NumericFilter = ({ column, onApply, langKey }: FilterEditorProps) => {
+
+    if (langKey) {
+        Lang.changeLanguage(langKey);
+    }
+
     const handleFilterChange = (isSecondInput?: boolean) => (
         event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
     ) => {
@@ -32,7 +38,7 @@ export const NumericFilter = ({ column, onApply }: FilterEditorProps) => {
                 <TextField
                     label={''}
                     type="number"
-                    placeholder={isBetween ? 'From' : 'Type a number'}
+                    placeholder={isBetween ? Lang.translate('From') : Lang.translate('TypeNumber')}
                     onChange={handleFilterChange()}
                     defaultValue={column.filterText}
                     onKeyDown={onKeyDown(onApply)}
@@ -43,7 +49,7 @@ export const NumericFilter = ({ column, onApply }: FilterEditorProps) => {
                     <TextField
                         label={''}
                         type="number"
-                        placeholder="To"
+                        placeholder={Lang.translate("To")}
                         onChange={handleFilterChange(true)}
                         defaultValue={column.filterArgument ? column.filterArgument[0] : ''}
                         onKeyDown={onKeyDown(onApply)}

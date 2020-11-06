@@ -18,4 +18,26 @@ export default interface TubularLangDef {
     CurrentRows: string;
     AllRows: string;
     Operator: string;
+    GridFeatures: string;
+    Filters: string;
+    Apply: string;
+    Cancel: string;
+    GreaterThan: string;
+    GreaterThanOrEquals: string;
+    LessThan: string;
+    LessThanOrEquals: string;
+    Equals: string;
+    NotEquals: string;
+    Between: string;
+    NotContains: string;
+    Contains: string;
+    StartsWith: string;
+    NotStartsWith: string;
+    EndsWith: string;
+    NotEndsWith: string;
+    From: string;
+    TypeNumber: string;
+    To: string;
+    SelectDate: string;
+    All: string;
 }

@@ -20,23 +20,18 @@ const useStyles = makeStyles({
 const outerWidth = 800;
 const timeout = 400;
 
-const message = (totalRecordCount: number, filteredRecordCount: number) => ({ from, to, count }: any) =>
-    totalRecordCount === filteredRecordCount
-        ? Lang.translate('Pages', from, to, count)
-        : filteredRecordCount === 0
-        ? Lang.translate('NoRecords')
-        : Lang.translate('TotalRecords', from, to, count, totalRecordCount);
-
 export interface PaginatorProps {
     tbTableInstance: ITbTableInstance;
     rowsPerPageOptions: number[];
     advancePagination: boolean;
+    langKey?: string;
 }
 
 export const Paginator: React.FunctionComponent<PaginatorProps> = ({
     tbTableInstance,
     rowsPerPageOptions,
     advancePagination,
+    langKey,
 }: PaginatorProps) => {
     const [isMobileResolution] = useResolutionSwitch(outerWidth, timeout);
     const classes = useStyles({});
@@ -45,6 +40,16 @@ export const Paginator: React.FunctionComponent<PaginatorProps> = ({
     if (!state.itemsPerPage) {
         return null;
     }
+
+    if (langKey) {
+        Lang.changeLanguage(langKey);
+    }
+    const message = (totalRecordCount: number, filteredRecordCount: number) => ({ from, to, count }: any) =>
+        totalRecordCount === filteredRecordCount
+            ? Lang.translate('Pages', from, to, count)
+            : filteredRecordCount === 0
+            ? Lang.translate('NoRecords')
+            : Lang.translate('TotalRecords', from, to, count, totalRecordCount);
 
     const newProps = {
         count: state.filteredRecordCount,
@@ -65,6 +70,7 @@ export const Paginator: React.FunctionComponent<PaginatorProps> = ({
             onChangePage={newProps.onChangePage}
             page={newProps.page}
             rowsPerPage={newProps.rowsPerPage}
+            langKey={langKey}
         />
     );
 

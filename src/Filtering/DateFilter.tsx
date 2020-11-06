@@ -5,10 +5,14 @@ import DateFnsUtils from '@date-io/date-fns';
 import { LocalizationProvider, DatePicker } from '@material-ui/pickers';
 import { ColumnModel, CompareOperators } from 'tubular-common';
 import { TextField } from '@material-ui/core';
+import Lang from '../utils/Lang';
+import enLocale from 'date-fns/locale/en-GB';
+import frLocale from 'date-fns/locale/fr';
 
 export interface DateFilterProps {
     column: ColumnModel;
     onApply: () => void;
+    langKey?: string;
 }
 
 const getInitialDates = (column: ColumnModel) => {
@@ -29,7 +33,7 @@ const getInitialDates = (column: ColumnModel) => {
     return dates;
 };
 
-export const DateFilter: React.FunctionComponent<DateFilterProps> = ({ column }: DateFilterProps) => {
+export const DateFilter: React.FunctionComponent<DateFilterProps> = ({ column,langKey }: DateFilterProps) => {
     const [dates, setDates] = React.useState(getInitialDates(column));
 
     const handleDateChange = (isSecondInput?: boolean) => (date: Date | null | undefined) => {
@@ -46,12 +50,20 @@ export const DateFilter: React.FunctionComponent<DateFilterProps> = ({ column }:
 
     const isBetween = column.filterOperator === CompareOperators.Between;
 
+    const localeMap = new Map ();
+    localeMap.set ('en', enLocale);
+    localeMap.set ('fr', frLocale);
+    const locale:Locale = (langKey) ? localeMap.get (langKey) : localeMap.get('en')
+    if (langKey) {
+        Lang.changeLanguage(langKey);
+    }
+
     return (
-        <LocalizationProvider dateAdapter={DateFnsUtils}>
+        <LocalizationProvider dateAdapter={DateFnsUtils} locale={locale}>
             <Grid container={true} direction="column">
                 <Grid item={true}>
                     <DatePicker
-                        label={isBetween ? 'From' : 'Select a date'}
+                        label={isBetween ? Lang.translate('From') : Lang.translate('SelectDate')}
                         value={dates[0]}
                         onChange={handleDateChange()}
                         renderInput={(props) => <TextField {...props} />}

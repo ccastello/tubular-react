@@ -7,6 +7,7 @@ import Radio from '@material-ui/core/Radio';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import { makeStyles } from '@material-ui/core/styles';
+import Lang from '../utils/Lang';
 
 const useStyles = makeStyles({
     label: {
@@ -14,7 +15,7 @@ const useStyles = makeStyles({
     },
 });
 
-export const BooleanFilterEditor = ({ column }: FilterEditorProps) => {
+export const BooleanFilterEditor = ({ column, langKey }: FilterEditorProps) => {
     const [selectedOption, setSelectedOption] = React.useState(column.filterText || 'all');
     const classes = useStyles();
     const onChoiceChange = (value: string) => {
@@ -28,6 +29,9 @@ export const BooleanFilterEditor = ({ column }: FilterEditorProps) => {
         column.filterOperator = CompareOperators.Equals;
         column.filterText = value;
     };
+    if (langKey) {
+        Lang.changeLanguage(langKey);
+    }
 
     return (
         <div>
@@ -44,7 +48,7 @@ export const BooleanFilterEditor = ({ column }: FilterEditorProps) => {
                     control={<Radio />}
                     label={<CheckBoxOutlineBlankIcon />}
                 />
-                <FormControlLabel value="all" control={<Radio />} label="All" />
+                <FormControlLabel value="all" control={<Radio />} label={Lang.translate('All')} />
             </RadioGroup>
         </div>
     );

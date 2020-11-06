@@ -15,6 +15,7 @@ interface GridBodyProps {
     rowSelectionEnabled?: boolean;
     onRowClick?(row: any): void;
     selection?: TbSelection;
+    langKey?: string;
 }
 
 const getStyles = (isPointer: boolean) => ({
@@ -37,6 +38,7 @@ export const GridBody: React.FunctionComponent<GridBodyProps> = ({
     detailComponent,
     rowSelectionEnabled,
     selection,
+    langKey,
 }: GridBodyProps) => {
     const styles = getStyles(Boolean(onRowClick));
     const RowComponent = rowComponent ? rowComponent : TbRow;
@@ -46,7 +48,7 @@ export const GridBody: React.FunctionComponent<GridBodyProps> = ({
     let content = null;
 
     if (state.filteredRecordCount === 0 && !state.isLoading) {
-        content = <NoDataRow columns={state.columns} styles={styles} />;
+        content = <NoDataRow columns={state.columns} styles={styles} langKey={langKey}/>;
     } else {
         content = state.data.map((row: any, rowIndex: number) => {
             if (detailComponent) {

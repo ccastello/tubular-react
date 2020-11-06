@@ -1,5 +1,6 @@
 import TubularLangDef from './languages/TubularLangDef';
 import English from './languages/English';
+import Francais from './languages/Francais';
 
 const formatTranslation = (val: string, args: any[]) =>
     val.replace(new RegExp(`{([0-${args.length - 1}])}`, 'gi'), (_, index) => args[index]);
@@ -33,6 +34,7 @@ export class LangBase<T> {
 export class LangDefault extends LangBase<TubularLangDef> {
     constructor() {
         super('en', English);
+        this.addLanguage('fr', Francais)
     }
 }
 

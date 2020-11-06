@@ -18,6 +18,7 @@ export interface DataGridTableProps {
     rowSelectionEnabled?: boolean;
     selection?: TbSelection;
     onRowClick?(row: any): void;
+    langKey?: string;
 }
 
 export const DataGridTable: React.FunctionComponent<DataGridTableProps> = (props: DataGridTableProps) => {
@@ -40,6 +41,7 @@ export const DataGridTable: React.FunctionComponent<DataGridTableProps> = (props
                 detailComponent={props.detailComponent}
                 rowSelectionEnabled={props.rowSelectionEnabled}
                 selection={props.selection}
+                langKey={props.langKey}
             />
             {props.footerComponent && (
                 <TableFooter>

@@ -20,6 +20,7 @@ export interface AdvancePaginationActionsProps {
     page: number;
     rowsPerPage: number;
     onChangePage(event: React.MouseEvent<HTMLElement>, page: number): void;
+    langKey?: string;
 }
 
 const getPages = (currentPage: number, totalRows: number, rowsPerPage: number) => {
@@ -60,6 +61,7 @@ export const AdvancePaginationActions: React.FunctionComponent<AdvancePagination
     page,
     rowsPerPage,
     onChangePage,
+    langKey,
 }: AdvancePaginationActionsProps) => {
     const classes = useStyles({});
     const pages = getPages(page, count, rowsPerPage);
@@ -74,6 +76,9 @@ export const AdvancePaginationActions: React.FunctionComponent<AdvancePagination
     const canNotBack = page === 0 || isLoading;
     const canNotFwd = page >= lastPage || isLoading;
 
+    if (langKey) {
+        Lang.changeLanguage(langKey)
+    }
     return (
         <div className={classes.root}>
             {isAdvanced && (

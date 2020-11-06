@@ -15,6 +15,7 @@ export interface ExportButtonProps {
     filteredRecordCount: number;
     toolTip?: string;
     exportTo: (allRows: boolean, exportFunc: (payload: any[], columns: ColumnModel[]) => void) => void;
+    langKey?: string;
 }
 
 export const ExportButton: React.FunctionComponent<ExportButtonProps> = ({
@@ -23,6 +24,7 @@ export const ExportButton: React.FunctionComponent<ExportButtonProps> = ({
     toolTip,
     exportTo,
     filteredRecordCount,
+    langKey,
 }: ExportButtonProps) => {
     const [anchorPrint, setAnchorPrint] = React.useState(null);
 
@@ -39,6 +41,10 @@ export const ExportButton: React.FunctionComponent<ExportButtonProps> = ({
     const printCurrent = () => exportTo(false, partialExport);
     const printAll = () => exportTo(true, partialExport);
 
+    if (langKey) {
+        Lang.changeLanguage(langKey);
+    }
+    
     return (
         <React.Fragment>
             <IconButton disabled={filteredRecordCount === 0} onClick={handlePrintMenu}>

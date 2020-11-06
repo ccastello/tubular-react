@@ -11,17 +11,17 @@ import { NumericFilter } from './NumericFilter';
 import { StringFilter } from './StringFilter';
 import { DateFilter } from './DateFilter';
 
-const getFilterControl = (column: ColumnModel, onApply: () => void) => {
+const getFilterControl = (column: ColumnModel, onApply: () => void, langKey?: string) => {
     switch (column.dataType) {
         case ColumnDataType.Numeric:
-            return <NumericFilter column={column} onApply={onApply} />;
+            return <NumericFilter column={column} onApply={onApply} langKey={langKey} />;
 
         case ColumnDataType.String:
             return <StringFilter column={column} onApply={onApply} />;
         case ColumnDataType.Date:
         case ColumnDataType.DateTime:
         case ColumnDataType.DateTimeUtc:
-            return <DateFilter column={column} onApply={onApply} />;
+            return <DateFilter column={column} onApply={onApply} langKey={langKey}/>;
 
         default:
             return null;
@@ -31,6 +31,7 @@ const getFilterControl = (column: ColumnModel, onApply: () => void) => {
 export const StandardFilterEditor: React.FunctionComponent<FilterEditorProps> = ({
     column,
     onApply,
+    langKey
 }: FilterEditorProps) => {
     const [currentOperator, setCurrentOperator] = React.useState(column.filterOperator);
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -38,7 +39,7 @@ export const StandardFilterEditor: React.FunctionComponent<FilterEditorProps> = 
     const options = getOperators(column).map((row: any) => ({
         key: row.value,
         icon: getOperatorIcon(column.filterOperator),
-        text: getOperatorText(row.value, row.title),
+        text: getOperatorText(row.value, langKey),
     }));
 
     const handleClose = () => {
@@ -73,7 +74,7 @@ export const StandardFilterEditor: React.FunctionComponent<FilterEditorProps> = 
                     </Button>
                 </Grid>
                 <Grid item={true} xs={9}>
-                    {getFilterControl(column, onApply)}
+                    {getFilterControl(column, onApply, langKey)}
                 </Grid>
             </Grid>
             <Menu id="split-button-menu" open={Boolean(anchorEl)} onClose={handleClose} anchorEl={anchorEl}>

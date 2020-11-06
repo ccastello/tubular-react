@@ -14,6 +14,7 @@ import { TbLessThanIcon } from '../SvgIcons/TbLessThanIcon';
 import { TbLessOrEqualsToIcon } from '../SvgIcons/TbLessOrEqualsToIcon';
 import { TbBetweenIcon } from '../SvgIcons/TbBetweenIcon';
 import FilterListIcon from '@material-ui/icons/FilterList';
+import Lang from '../utils/Lang';
 
 export const handleFilterChange = (column: ColumnModel) => (
     event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
@@ -32,30 +33,44 @@ export const onKeyDown = (onEnter: () => void) => (ev: React.KeyboardEvent) => {
 export interface FilterEditorProps {
     column: ColumnModel;
     onApply: () => void;
+    langKey?: string;
 }
 
-export const getOperatorText = (value: CompareOperators, title: string) => {
+export const getOperatorText = (value: CompareOperators, langKey?: string) => {
+
+    if (langKey) {
+        Lang.changeLanguage(langKey);
+    }
+
     switch (value) {
         case CompareOperators.NotContains:
+            return Lang.translate('NotContains');
         case CompareOperators.Contains:
+            return Lang.translate('Contains');
         case CompareOperators.StartsWith:
+            return Lang.translate('StartsWith');
         case CompareOperators.NotStartsWith:
+            return Lang.translate('NotStartsWith');
         case CompareOperators.EndsWith:
+            return Lang.translate('EndsWith');
         case CompareOperators.NotEndsWith:
+            return Lang.translate('NotEndsWith');;
         case CompareOperators.Equals:
+            return Lang.translate('Equals');
         case CompareOperators.NotEquals:
+            return Lang.translate('NotEquals');
         case CompareOperators.Between:
-            return title;
+            return Lang.translate('Between');
         case CompareOperators.Gt:
-            return 'Greater than';
+            return Lang.translate('GreaterThan');
         case CompareOperators.Gte:
-            return 'Greater than or equals to';
+            return Lang.translate('GreaterThanOrEquals');
         case CompareOperators.Lt:
-            return 'Less than';
+            return Lang.translate('LessThan');
         case CompareOperators.Lte:
-            return 'Less than or equals to';
+            return Lang.translate('LessThanOrEquals');
         default:
-            return 'None';
+            return Lang.translate('None');
     }
 };
 

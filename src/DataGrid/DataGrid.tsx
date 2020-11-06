@@ -49,6 +49,7 @@ export interface DataGridProps {
     onError?(err: string): void;
     onRowClick?(row: any): void;
     rowSelectionEnabled?: boolean;
+    langKey?: string;
 }
 
 export const DataGrid: React.FunctionComponent<DataGridProps> = (props: DataGridProps) => {
@@ -67,9 +68,10 @@ export const DataGrid: React.FunctionComponent<DataGridProps> = (props: DataGrid
         toolbarOptions = props.toolbarOptions || new ToolbarOptions(),
         detailComponent,
         rowSelectionEnabled,
+        langKey,
     } = props;
 
-    const classes = useStyles({});
+    const classes = useStyles();
 
     const tbTableInstance = useTbTable(columns, dataSource, {
         callbacks: { onError },
@@ -110,6 +112,7 @@ export const DataGrid: React.FunctionComponent<DataGridProps> = (props: DataGrid
                     advancePagination={toolbarOptions.advancePagination}
                     rowsPerPageOptions={toolbarOptions.rowsPerPageOptions}
                     tbTableInstance={tbTableInstance}
+                    langKey={langKey}
                 />
             </Paper>
         );
@@ -123,6 +126,7 @@ export const DataGrid: React.FunctionComponent<DataGridProps> = (props: DataGrid
                         advancePagination={toolbarOptions.advancePagination}
                         rowsPerPageOptions={toolbarOptions.rowsPerPageOptions}
                         tbTableInstance={tbTableInstance}
+                        langKey={langKey}
                     />
                 </TableRow>
             </TableHead>
@@ -149,7 +153,7 @@ export const DataGrid: React.FunctionComponent<DataGridProps> = (props: DataGrid
     return (
         <Paper className={classes.root}>
             {!showSelectionToolbar && (
-                <GridToolbar toolbarOptions={toolbarOptions} tbTableInstance={tbTableInstance} gridName={gridName} />
+                <GridToolbar toolbarOptions={toolbarOptions} tbTableInstance={tbTableInstance} gridName={gridName} langKey={langKey}/>
             )}
             {showSelectionToolbar && (
                 <SelectionToolbar selection={selection} actionsArea={toolbarOptions.actionsArea} />
@@ -166,6 +170,7 @@ export const DataGrid: React.FunctionComponent<DataGridProps> = (props: DataGrid
                 onRowClick={onRowClick}
                 rowSelectionEnabled={rowSelectionEnabled}
                 selection={selection}
+                langKey={langKey}
             />
             {toolbarOptions.enablePagination && paginator}
         </Paper>
