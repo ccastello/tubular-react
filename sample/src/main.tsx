@@ -11,7 +11,7 @@ import ErrorBoundary from './ErrorBoundary';
 import LocalDataGrid from './localDataGrid';
 import MasterDetailRow from './masterDetailRow';
 import RemoteDataGrid from './remoteDataGrid';
-import RemoteGridList from './remoteGridList';
+import RemoteGridList from './RemoteGridList';
 import TbListExample from './TbListExample';
 
 const useStyles = makeStyles(({ palette }: any) => ({
