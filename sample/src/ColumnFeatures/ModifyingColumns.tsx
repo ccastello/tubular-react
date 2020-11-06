@@ -57,6 +57,7 @@ const ModifyingColumns: React.FunctionComponent = () => {
                 storage={new LocalStorage()}
                 onError={setErrorMessage}
                 toolbarOptions={toolbarOptions}
+                langKey="fr"
             />
         </div>
     );

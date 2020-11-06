@@ -7,7 +7,9 @@ import ThemeProvider from '@material-ui/styles/ThemeProvider';
 
 import Main from './main';
 
-let theme = createMuiTheme();
+import {frFR} from '@material-ui/core/locale'
+
+let theme = createMuiTheme({}, frFR);
 theme = responsiveFontSizes(theme);
 
 render(
