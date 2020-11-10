@@ -53,6 +53,7 @@ const LocalDataGrid: React.FunctionComponent = () => {
                 toolbarOptions={toolbarOptions}
                 onRowClick={rowClick}
                 rowSelectionEnabled={true}
+                langKey="fr"
             />
         </div>
     );
