@@ -52,10 +52,11 @@ export const GridBody: React.FunctionComponent<GridBodyProps> = ({
     } else {
         content = state.data.map((row: any, rowIndex: number) => {
             if (detailComponent) {
+                
                 return (
                     <MasterDetailRow
                         detail={detailComponent}
-                        renderCells={renderCells(state.columns, row)}
+                        renderCells={renderCells(state.columns, row, langKey)}
                         clickEvent={onRowClickProxy}
                         style={styles.row}
                         key={rowIndex}
@@ -74,6 +75,7 @@ export const GridBody: React.FunctionComponent<GridBodyProps> = ({
                     onRowClick={onRowClickProxy(row)}
                     rowSelectionEnabled={rowSelectionEnabled}
                     selection={selection}
+                    langKey={langKey}
                 />
             );
         });

@@ -4,9 +4,19 @@ import CheckBoxOutlineBlank from '@material-ui/icons/CheckBoxOutlineBlank';
 import * as React from 'react';
 import { ColumnDataType, ColumnModel, getColumnAlign } from 'tubular-common';
 import DateFnsAdapter from '@date-io/date-fns'
+import fr from 'date-fns/locale/fr'
 
-export const renderCellContent: any = (column: ColumnModel, row: any) => {
-    const dateFns = new DateFnsAdapter ()
+export const renderCellContent: any = (column: ColumnModel, row: any, langKey: string) => {
+
+    /* @todo add locales  */
+    let locale = null 
+    switch (langKey) {
+        case 'fr':
+            locale = fr;
+            break;
+    }
+
+    const dateFns = new DateFnsAdapter ({locale: locale})
     let value = row[column.name]
     let sValue = ''
 
@@ -32,7 +42,7 @@ export const renderDefaultListItem: any = (columns: ColumnModel[], row: any) =>
         .filter((col: ColumnModel) => col.visible)
         .map((column: ColumnModel) => <div key={column.name}>{renderCellContent(column, row)}</div>);
 
-export const renderCells: any = (columns: ColumnModel[], row: any) =>
+export const renderCells: any = (columns: ColumnModel[], row: any, langKey: string) =>
     columns
         .filter((col: ColumnModel) => col.visible)
         .map((column: ColumnModel) => (
@@ -41,6 +51,6 @@ export const renderCells: any = (columns: ColumnModel[], row: any) =>
                 padding={column.label === '' ? 'none' : 'default'}
                 align={getColumnAlign(column)}
             >
-                {renderCellContent(column, row)}
+                {renderCellContent(column, row, langKey)}
             </TableCell>
         ));

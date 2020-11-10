@@ -13,6 +13,7 @@ export interface TbRowProps {
     onRowClick?(): void;
     rowSelectionEnabled?: boolean;
     selection?: TbSelection;
+    langKey?: string;
 }
 
 export const TbRow: React.FunctionComponent<TbRowProps> = ({
@@ -21,7 +22,9 @@ export const TbRow: React.FunctionComponent<TbRowProps> = ({
     onRowClick,
     rowSelectionEnabled,
     selection,
+    langKey,
 }: TbRowProps) => {
+    
     return (
         <TableRow hover={true} onClick={onRowClick}>
             {rowSelectionEnabled && selection.rowSelection[row[columns.find((c) => c.isKey).name]] !== undefined && (
@@ -36,7 +39,7 @@ export const TbRow: React.FunctionComponent<TbRowProps> = ({
                     />
                 </TableCell>
             )}
-            {renderCells(columns, row)}
+            {renderCells(columns, row, langKey)}
         </TableRow>
     );
 };

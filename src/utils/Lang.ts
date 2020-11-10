@@ -35,6 +35,9 @@ export class LangDefault extends LangBase<TubularLangDef> {
     constructor() {
         super('en', English);
         this.addLanguage('fr', Francais)
+
+        /* @todo add locales  */
+        
     }
 }
 
