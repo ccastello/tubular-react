@@ -20,7 +20,7 @@ const Francais: TubularLangDef = {
     CurrentRows: 'Lignes affichées',
     AllRows: 'Toutes les lignes',
     Operator: 'Operateur',
-    GridFeatures: 'Fonctionnalités',
+    GridFeatures: 'Fonctionnalités supplémentaires',
     Filters: 'Filtres',
     Apply: 'Appliquer',
     Cancel: 'Annuler',
