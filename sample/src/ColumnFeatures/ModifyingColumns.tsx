@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
+import Switch from '@material-ui/core/Switch';
 import { LocalStorage, createColumn } from 'tubular-common';
 import { DataGrid } from '../../../src';
 import { ToolbarOptions } from '../../../src/Toolbar/ToolbarOptions';
@@ -12,6 +13,7 @@ const ModifyingColumns: React.FunctionComponent = () => {
     const [getErrorMessage, setErrorMessage] = React.useState(null as string);
     const [gridColumns, setGridColumns] = React.useState(columns);
     const [columnCounter, setColumnCounter] = React.useState(0);
+    const [gridFeatures, enableGridFeatures] = React.useState(true);
 
     const handleAddColumn = () => {
         setGridColumns([
@@ -30,6 +32,10 @@ const ModifyingColumns: React.FunctionComponent = () => {
         setGridColumns([...gridColumns.filter(c => c.name !== gridColumns[gridColumns.length - 1].name)]);
     };
 
+    const handleGridFeatures = () => {
+        enableGridFeatures(!gridFeatures)
+    }
+
     const toolbarOptions = new ToolbarOptions({
         customItems: (
             <div>
@@ -37,6 +43,7 @@ const ModifyingColumns: React.FunctionComponent = () => {
                 <Button onClick={handleDeleteLastColumn}>Delete last column</Button>
             </div>
         ),
+        gridFeatures: gridFeatures,
     });
 
     return (
@@ -50,6 +57,7 @@ const ModifyingColumns: React.FunctionComponent = () => {
                     message={<span id="message-id">{getErrorMessage}</span>}
                 />
             )}
+            <div>Grid features<Switch checked={gridFeatures} onClick={handleGridFeatures} />{gridFeatures ? 'enabled' : 'disabled'}</div>
             <DataGrid
                 columns={gridColumns}
                 dataSource={localData}
