@@ -8,6 +8,7 @@ export class ToolbarOptions {
     public exportButton = true;
     public printButton = true;
     public searchText = true;
+    public gridFeatures = true;
     public rowsPerPageOptions: number[] = [10, 20, 50, 100];
     public itemsPerPage = 10;
     public title = '';

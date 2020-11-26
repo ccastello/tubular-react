@@ -107,11 +107,14 @@ export const GridToolbar: React.FunctionComponent<GridToolbarProps> = ({
                     />
                 )}
 
-                <Tooltip title={labelGridFeatures}>
-                    <IconButton aria-label="Grid features" onClick={togglePanel}>
-                        <TuneIcon />
-                    </IconButton>
-                </Tooltip>
+                {toolbarOptions.gridFeatures && (
+                    <Tooltip title={labelGridFeatures}>
+                        <IconButton aria-label="Grid features" onClick={togglePanel}>
+                            <TuneIcon />
+                        </IconButton>
+                    </Tooltip>
+                )}
+                
             </Toolbar>
             {enableFeaturesDrawer && isPanelOpen && (
                 <FeaturesDrawer
