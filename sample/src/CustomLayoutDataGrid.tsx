@@ -1,5 +1,7 @@
 import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
+import Switch from '@material-ui/core/Switch';
 import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
 import Table from '@material-ui/core/Table';
@@ -64,9 +66,13 @@ const tbFooter = ({ aggregates }: any) => (
 
 const CustomLayoutDataGrid: React.FunctionComponent = () => {
     const [getErrorMessage] = React.useState(null as string);
+    const [smallSize, setSmallSize] = React.useState(false);
     const tbTableInstance = useTbTable(sampleColumns, localData);
     const onRowClick = row => console.log(row);
     const [isMobileResolution] = useResolutionSwitch(800, 400);
+
+    const handleChangeSize = (event: any) => setSmallSize(event.target.checked);
+
     if (isMobileResolution) {
         return (
             <Paper>
@@ -91,9 +97,13 @@ const CustomLayoutDataGrid: React.FunctionComponent = () => {
                     message={<span id="message-id">{getErrorMessage}</span>}
                 />
             )}
+            
             <Typography style={{ margin: '25px', marginBottom: '10px' }} variant="h4">
                 No card grid!
             </Typography>
+            <Paper>
+                <div>Normal size<Switch checked={smallSize} onChange={handleChangeSize} />Small size - @see https://material-ui.com/api/table/#table-api </div>
+            </Paper>            
             <Table>
                 <TableHead>
                     <TableRow>
@@ -111,6 +121,7 @@ const CustomLayoutDataGrid: React.FunctionComponent = () => {
                 rowComponent={CustomTbRow}
                 footerComponent={tbFooter}
                 onRowClick={onRowClick}
+                size={smallSize ? 'small' : 'medium'}
             />
         </>
     );

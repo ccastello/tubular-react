@@ -1,6 +1,6 @@
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Paper from '@material-ui/core/Paper';
-import Table from '@material-ui/core/Table';
+import Table, { Size } from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import makeStyles from '@material-ui/styles/makeStyles';
@@ -50,6 +50,7 @@ export interface DataGridProps {
     onRowClick?(row: any): void;
     rowSelectionEnabled?: boolean;
     langKey?: string;
+    size?: Size;
 }
 
 export const DataGrid: React.FunctionComponent<DataGridProps> = (props: DataGridProps) => {
@@ -69,6 +70,7 @@ export const DataGrid: React.FunctionComponent<DataGridProps> = (props: DataGrid
         detailComponent,
         rowSelectionEnabled,
         langKey,
+        size,
     } = props;
 
     const classes = useStyles();
@@ -171,6 +173,7 @@ export const DataGrid: React.FunctionComponent<DataGridProps> = (props: DataGrid
                 rowSelectionEnabled={rowSelectionEnabled}
                 selection={selection}
                 langKey={langKey}
+                size={size}
             />
             {toolbarOptions.enablePagination && paginator}
         </Paper>

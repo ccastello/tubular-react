@@ -1,4 +1,4 @@
-import Table from '@material-ui/core/Table';
+import Table, { Size } from '@material-ui/core/Table';
 import TableFooter from '@material-ui/core/TableFooter';
 import TableHead from '@material-ui/core/TableHead';
 
@@ -19,13 +19,14 @@ export interface DataGridTableProps {
     selection?: TbSelection;
     onRowClick?(row: any): void;
     langKey?: string;
+    size?: Size;
 }
 
 export const DataGridTable: React.FunctionComponent<DataGridTableProps> = (props: DataGridTableProps) => {
     const Footer = props.footerComponent;
 
     return (
-        <Table data-testid="data-grid-table">
+        <Table data-testid="data-grid-table" size={props.size}>
             <TableHead>
                 <GridHeader
                     detailComponent={props.detailComponent}
