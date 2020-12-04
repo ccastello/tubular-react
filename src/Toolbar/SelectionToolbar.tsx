@@ -9,6 +9,7 @@ import Lang from '../utils/Lang';
 export interface SelectionToolbarProps {
     selection: TbSelection;
     actionsArea?: React.ComponentType<any>;
+    langKey?: string; 
 }
 
 const useToolbarStyles = makeStyles((theme: Theme) =>
@@ -38,10 +39,16 @@ const spacer: React.CSSProperties = { flex: '1 0' };
 export const SelectionToolbar: React.FunctionComponent<SelectionToolbarProps> = ({
     selection,
     actionsArea,
+    langKey,
 }: SelectionToolbarProps) => {
     const classes = useToolbarStyles();
     const ActionsArea = actionsArea;
     const nbSelected = selection.getSelectedCount();
+
+    if (langKey) {
+        Lang.changeLanguage(langKey);
+    }
+    
     return (
         <Toolbar
             data-testid="selection-toolbar"
