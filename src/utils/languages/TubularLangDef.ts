@@ -40,4 +40,6 @@ export default interface TubularLangDef {
     To: string;
     SelectDate: string;
     All: string;
+    Selected: string;
+    SelectedPlural: string;
 }

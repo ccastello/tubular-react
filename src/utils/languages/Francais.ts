@@ -42,6 +42,8 @@ const Francais: TubularLangDef = {
     To: "Jusqu'à",
     SelectDate: "Choisir une date",
     All: 'Tous',
+    Selected: 'sélectionné',
+    SelectedPlural: 'sélectionnés',
 
 };
 

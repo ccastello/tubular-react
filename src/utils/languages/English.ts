@@ -42,6 +42,8 @@ const English: TubularLangDef = {
     To: 'To',
     SelectDate: 'Select a date',
     All: 'All',
+    Selected: 'selected',
+    SelectedPlural: 'selected',
     
 };
 

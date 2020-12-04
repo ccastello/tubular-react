@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import Typography from '@material-ui/core/Typography';
 import { TbSelection } from '../utils/Selection';
 import { createStyles, makeStyles, lighten, Theme } from '@material-ui/core/styles';
+import Lang from '../utils/Lang';
 
 export interface SelectionToolbarProps {
     selection: TbSelection;
@@ -40,16 +41,17 @@ export const SelectionToolbar: React.FunctionComponent<SelectionToolbarProps> = 
 }: SelectionToolbarProps) => {
     const classes = useToolbarStyles();
     const ActionsArea = actionsArea;
-
+    const nbSelected = selection.getSelectedCount();
     return (
         <Toolbar
             data-testid="selection-toolbar"
             className={clsx(classes.root, {
-                [classes.highlight]: selection.getSelectedCount() > 0,
+                [classes.highlight]: nbSelected > 0,
             })}
         >
             <Typography color="inherit" variant="subtitle1" component="div">
-                {selection.getSelectedCount()} selected
+                {nbSelected === 1 && Lang.translate('Selected')}
+                {nbSelected > 1 && Lang.translate('SelectedPlural')}
             </Typography>
             <div style={spacer} />
             {ActionsArea && <ActionsArea selection={selection} />}
