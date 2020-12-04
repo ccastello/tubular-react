@@ -48,7 +48,7 @@ export const SelectionToolbar: React.FunctionComponent<SelectionToolbarProps> = 
     if (langKey) {
         Lang.changeLanguage(langKey);
     }
-    
+
     return (
         <Toolbar
             data-testid="selection-toolbar"
@@ -57,8 +57,8 @@ export const SelectionToolbar: React.FunctionComponent<SelectionToolbarProps> = 
             })}
         >
             <Typography color="inherit" variant="subtitle1" component="div">
-                {nbSelected === 1 && Lang.translate('Selected')}
-                {nbSelected > 1 && Lang.translate('SelectedPlural')}
+                {nbSelected === 1 && `${nbSelected} ${Lang.translate('Selected')}` }
+                {nbSelected > 1 && `${nbSelected} ${Lang.translate('SelectedPlural')}`}
             </Typography>
             <div style={spacer} />
             {ActionsArea && <ActionsArea selection={selection} />}
