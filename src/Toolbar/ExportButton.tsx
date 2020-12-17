@@ -15,6 +15,7 @@ export interface ExportButtonProps {
     filteredRecordCount: number;
     toolTip?: string;
     exportTo: (allRows: boolean, exportFunc: (payload: any[], columns: ColumnModel[]) => void) => void;
+    enablePagination: boolean;
     langKey?: string;
 }
 
@@ -24,6 +25,7 @@ export const ExportButton: React.FunctionComponent<ExportButtonProps> = ({
     toolTip,
     exportTo,
     filteredRecordCount,
+    enablePagination,
     langKey,
 }: ExportButtonProps) => {
     const [anchorPrint, setAnchorPrint] = React.useState(null);
@@ -45,9 +47,16 @@ export const ExportButton: React.FunctionComponent<ExportButtonProps> = ({
         Lang.changeLanguage(langKey);
     }
     
+    let onClickTo;
+    if (enablePagination) {
+        onClickTo = handlePrintMenu;
+    } else {
+        onClickTo = printAll;
+    }
+
     return (
         <React.Fragment>
-            <IconButton disabled={filteredRecordCount === 0} onClick={handlePrintMenu}>
+            <IconButton disabled={filteredRecordCount === 0} onClick={onClickTo}>
                 {type === 'print' ? (
                     <Tooltip title={toolTip || Lang.translate('Print')}>
                         <Print />
@@ -58,10 +67,12 @@ export const ExportButton: React.FunctionComponent<ExportButtonProps> = ({
                     </Tooltip>
                 )}
             </IconButton>
-            <Menu anchorEl={anchorPrint} open={Boolean(anchorPrint)} onClose={closePrint}>
-                <MenuItem onClick={printCurrent}>{Lang.translate('CurrentRows')}</MenuItem>
-                <MenuItem onClick={printAll}>{Lang.translate('AllRows')}</MenuItem>
-            </Menu>
+            {enablePagination && 
+                <Menu anchorEl={anchorPrint} open={Boolean(anchorPrint)} onClose={closePrint}>
+                    <MenuItem onClick={printCurrent}>{Lang.translate('CurrentRows')}</MenuItem>
+                    <MenuItem onClick={printAll}>{Lang.translate('AllRows')}</MenuItem>
+                </Menu>
+            }
         </React.Fragment>
     );
 };

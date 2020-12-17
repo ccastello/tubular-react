@@ -86,6 +86,7 @@ export const GridToolbar: React.FunctionComponent<GridToolbarProps> = ({
                         exportTo={tbTableInstance.api.exportTo}
                         filteredRecordCount={tbTableInstance.state.filteredRecordCount}
                         data-testid="export-button-csv"
+                        enablePagination={toolbarOptions.enablePagination}
                         langKey={langKey}
                     />
                 )}
@@ -96,6 +97,7 @@ export const GridToolbar: React.FunctionComponent<GridToolbarProps> = ({
                         exportTo={tbTableInstance.api.exportTo}
                         filteredRecordCount={tbTableInstance.state.filteredRecordCount}
                         data-testid="export-button-print"
+                        enablePagination={toolbarOptions.enablePagination}
                         langKey={langKey}
                     />
                 )}
