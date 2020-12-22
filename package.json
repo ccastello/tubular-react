@@ -74,7 +74,7 @@
     "react-dom": "^17.0.1",
     "react-virtualized": "^9.22.3",
     "tubular-common": "^4.2.7",
-    "tubular-react-common": "^3.1.0",
+    "tubular-react-common": "^3.1.1",
     "uno-material-ui": "^2.0.10",
     "uno-react": "^0.18.16"
   },
