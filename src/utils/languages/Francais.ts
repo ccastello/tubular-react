@@ -15,7 +15,7 @@ const Francais: TubularLangDef = {
     Pages: '{0} - {1} sur {2}',
     TotalRecords: '{0} à {1} sur {2} depuis {3} enregistrements',
     Loading: 'Chargement...',
-    Download: 'Téléchargement',
+    Download: 'Exporter en CSV',
     Print: 'Imprimer',
     CurrentRows: 'Lignes affichées',
     AllRows: 'Toutes les lignes',
